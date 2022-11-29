@@ -1,5 +1,7 @@
 using CarRentalManagement.Server.Data;
+using CarRentalManagement.Server.IRepository;
 using CarRentalManagement.Server.Models;
+using CarRentalManagement.Server.Repository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,7 +31,7 @@ namespace CarRentalManagement.Server
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
